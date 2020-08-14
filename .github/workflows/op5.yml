@@ -1,0 +1,29 @@
+name: Build Kernel 
+on:
+  push:
+    branches:    
+      - temp
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Init Repo
+      run: |
+        cd $HOME
+        git clone --depth=1 https://github.com/kpzhao/kernel_oneplus_msm8998 kernel -b temp
+    - name: Build With Shell
+      run: |
+        cd ~/kernel
+        bash setup.sh
+        bash build.sh
+    - name: Package With AnyKernel
+      run: |
+        cd $HOME
+        cd AnyKernel3
+        cp ../kernel/out/arch/arm64/boot/Image.gz-dtb  ./
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: dumpling-kernel-poad45
+        path: /home/runner/AnyKernel/
