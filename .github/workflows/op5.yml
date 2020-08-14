@@ -25,5 +25,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: dumpling-kernel-poad45
+        name: dumpling-kernel-poad42
         path: /home/runner/AnyKernel3/
